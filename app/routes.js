@@ -1,5 +1,6 @@
+const path = require('path');
 // 创建Redis客户端
-const redisClient = require("../config/redis");
+const { redisClient } = require("../config/redis");
 
 module.exports = function (app) {
     // 处理POST请求
@@ -9,7 +10,7 @@ module.exports = function (app) {
         if (err) {
             res.status(500).send('Internal Server Error');
         } else if (reply === null) {
-            res.sendFile("../public/doodles.html");
+            res.sendFile(path.join(__dirname, "../public/doodles.html"));
         } else {
             res.send(reply);
         }
