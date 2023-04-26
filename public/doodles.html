@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>可编辑的单页网站</title>
+</head>
+<body>
+    <div contentEditable="true" id="editable-div">
+        <p>在这里输入文本，可以编辑并添加图片</p>
+    </div>
+    <button id="add-image-btn">添加图片</button>
+    <button id="add-text-btn">添加文本</button>
+    <button id="save-btn">保存</button>
+
+    <!-- 用于选择图片的隐藏的<input>元素 -->
+    <input type="file" id="image-file-input" style="display:none;">
+
+    <script>
+        // 添加图片
+        document.querySelector('#add-image-btn').addEventListener('click', function() {
+            // 点击按钮时触发<input>元素的点击事件
+            document.querySelector('#image-file-input').click();
+        });
+
+        // 监听<input>元素的change事件，获取选择的图片并添加到网页中
+        document.querySelector('#image-file-input').addEventListener('change', function() {
+            var file = this.files[0];
+            if (!file || !file.type.match('image.*')) {
+                alert('请选择图片文件');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function() {
+                var img = document.createElement('img');
+                img.src = reader.result;
+                document.querySelector('#editable-div').appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 添加文本
+        document.querySelector('#add-text-btn').addEventListener('click', function() {
+            var p = document.createElement('p');
+            p.textContent = '这是一个新段落';
+            document.querySelector('#editable-div').appendChild(p);
+        });
+
+        // 保存
+        document.querySelector('#save-btn').addEventListener('click', function() {
+            var content = document.querySelector('#editable-div').innerHTML;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'path/to/save-handler.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('保存成功');
+                } else {
+                    alert('保存失败');
+                }
+            };
+            xhr.send('content=' + encodeURIComponent(content));
+        });
+    </script>
+</body>
+</html>
