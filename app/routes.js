@@ -12,7 +12,7 @@ module.exports = function (app) {
             } else if (reply === null) {
                 res.sendFile(path.join(__dirname, "../public/doodles.html"));
             } else {
-                res.send(replyBuffer.from(reply, 'base64').toString('utf8'));
+                res.send(Buffer.from(reply, 'base64').toString('utf8'));
             }
         });
     });
