@@ -51,9 +51,9 @@
             fetch('/doodles', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'text/html'
+                    'Content-Type': 'text/plain'
                 },
-                body: btoa(content)
+                body: content
             }).then(function(response) {
                 if (response.ok) {
                     alert('保存成功');

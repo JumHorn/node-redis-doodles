@@ -12,15 +12,15 @@ module.exports = function (app) {
             } else if (reply === null) {
                 res.sendFile(path.join(__dirname, "../public/doodles.html"));
             } else {
-                res.send(Buffer.from(reply, 'base64').toString('utf8'));
+                res.send(reply);
             }
         });
     });
     app.post('/doodles', function(req, res) {
-        const content = req.body.content;
+        const content = req.body;
     
         // 将数据存储到Redis中
-        redisClient.set('doodles.html', content, function(err, result) {
+        redisClient.set('doodles.html', content, function(err, reply) {
             if (err) {
                 console.error(err);
                 res.status(500).send('Internal Server Error');

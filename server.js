@@ -6,8 +6,9 @@ const { PORT } = require("./config/config");
 // 创建Express实例
 const app = express();
 
-// 解析请求体中的JSON数据
-app.use(bodyParser.json());
+// 解析请求体中的TEXT数据
+app.use(bodyParser.text());
+// app.use(bodyParser.json());
 
 // routes
 require('./app/routes.js')(app);
