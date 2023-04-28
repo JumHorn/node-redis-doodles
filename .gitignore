@@ -118,3 +118,6 @@ dist
 
 .env
 .env.backup
+
+## others
+package-lock.json

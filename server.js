@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 const { PORT } = require("./config/config");
 
@@ -9,6 +10,9 @@ const app = express();
 // 解析请求体中的TEXT数据
 app.use(bodyParser.text({ limit: '20mb' }));
 // app.use(bodyParser.json({ limit: '20mb' }));
+
+// 解析请求中的cookies
+app.use(cookieParser());
 
 // routes
 require('./app/routes.js')(app);

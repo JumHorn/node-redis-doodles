@@ -6,9 +6,9 @@ module.exports = function (app) {
     // 处理GET请求
     app.get('/doodles', function(req, res) {
         // 先取浏览器请求，后取cookies
-        const username = req.query.username;
+        var username = req.query.username;
         if (typeof username === 'undefined') {
-            username = req.cookie.user;
+            username = req.cookies.username;
         }
 
         if (typeof username === 'undefined') {
@@ -40,7 +40,7 @@ module.exports = function (app) {
     // 处理POST请求
     app.post('/doodles', function(req, res) {
         const content = req.body;
-        const username = req.cookie.user;
+        const username = req.cookies.username;
         
         if (typeof username === 'undefined') {
             // 将数据存储到Redis中
