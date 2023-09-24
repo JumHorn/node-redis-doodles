@@ -10,7 +10,8 @@ const [host, port] = endpoint.split(":");
 const redisClient = redis.createClient({
     host: host,
     port: +port,
-    password: password
+    password: password,
+    reconnectStrategy: () => 3000,
 });
 
 module.exports = { redisClient };
